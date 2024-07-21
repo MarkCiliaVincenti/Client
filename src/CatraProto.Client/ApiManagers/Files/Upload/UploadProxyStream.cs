@@ -18,14 +18,14 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using CatraProto.Client.Async.Locks;
+using AsyncKeyedLock;
 using CatraProto.Client.Crypto;
 
 namespace CatraProto.Client.ApiManagers.Files.Upload;
 
 public class UploadProxyStream : IDisposable
 {
-    private readonly AsyncLock _asyncLock = new AsyncLock();
+    private readonly AsyncNonKeyedLocker _asyncLock = new AsyncNonKeyedLocker();
     private readonly MemoryStream? _backingStream;
     private readonly long _fromOffsetPosition;
     private readonly Stream _sourceStream;

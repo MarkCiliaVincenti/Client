@@ -18,7 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CatraProto.Client.Async.Locks;
+using AsyncKeyedLock;
 using CatraProto.Client.Crypto;
 
 namespace CatraProto.Client.ApiManagers.Files.Download;
@@ -26,7 +26,7 @@ namespace CatraProto.Client.ApiManagers.Files.Download;
 public class DownloadProxyStream : IDisposable
 {
     private readonly Dictionary<int, byte[]> _bytes = new Dictionary<int, byte[]>();
-    private readonly AsyncLock _asyncLock = new AsyncLock();
+    private readonly AsyncNonKeyedLocker _asyncLock = new AsyncNonKeyedLocker();
     private readonly Stream _destinationStream;
     private int _waitingForChunk;
 

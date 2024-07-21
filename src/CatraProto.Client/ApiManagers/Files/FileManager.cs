@@ -16,11 +16,11 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using AsyncKeyedLock;
 using CatraProto.Client.ApiManagers.Files.Download;
 using CatraProto.Client.ApiManagers.Files.Updates;
 using CatraProto.Client.ApiManagers.Files.Upload;
 using CatraProto.Client.ApiManagers.Files.UploadMetadata;
-using CatraProto.Client.Async.Locks;
 using CatraProto.Client.MTProto;
 using CatraProto.Client.MTProto.Rpc;
 using CatraProto.Client.MTProto.Rpc.RpcErrors.ClientErrors;
@@ -35,8 +35,8 @@ public class FileManager
 {
     private const int BigFileLength = 10 * 1024 * 1024;
 
-    private readonly AsyncLock _downloadLock = new AsyncLock();
-    private readonly AsyncLock _uploadLock = new AsyncLock();
+    private readonly AsyncNonKeyedLocker _downloadLock = new AsyncNonKeyedLocker();
+    private readonly AsyncNonKeyedLocker _uploadLock = new AsyncNonKeyedLocker();
     private readonly SequentialInvoker _sequentialInvoker;
     private readonly TelegramClient _client;
     private readonly ILogger _logger;

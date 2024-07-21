@@ -20,7 +20,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using CatraProto.Client.Async.Locks;
+using AsyncKeyedLock;
 using CatraProto.Client.MTProto.Session.Interfaces;
 using Serilog;
 
@@ -28,7 +28,7 @@ namespace CatraProto.Client.MTProto.Session.Deserializers
 {
     public class FileSerializer : IAsyncSessionSerializer
     {
-        private readonly AsyncLock _lock = new AsyncLock();
+        private readonly AsyncNonKeyedLocker _lock = new AsyncNonKeyedLocker();
         private readonly string _filePath;
         public FileSerializer(string filePath)
         {

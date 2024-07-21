@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CatraProto.Client.Async.Locks;
+using AsyncKeyedLock;
 using CatraProto.Client.TL.Schemas.CloudChats;
 using Serilog;
 
@@ -27,7 +27,7 @@ namespace CatraProto.Client.ApiManagers
 {
     internal class ConfigManager : IDisposable
     {
-        private readonly AsyncLock _asyncLock = new AsyncLock();
+        private readonly AsyncNonKeyedLocker _asyncLock = new AsyncNonKeyedLocker();
         private readonly TelegramClient _client;
         private readonly ILogger _logger;
         private Config? _lastConfig;

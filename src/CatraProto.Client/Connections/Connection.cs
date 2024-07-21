@@ -20,6 +20,7 @@ using System;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using AsyncKeyedLock;
 using CatraProto.Client.Async.Locks;
 using CatraProto.Client.Connections.MessageScheduling;
 using CatraProto.Client.Connections.Protocols.Interfaces;
@@ -41,7 +42,7 @@ namespace CatraProto.Client.Connections
         private CancellationTokenSource _fullShutdownSource = new CancellationTokenSource();
         private readonly SingleCallAsync<CancellationToken> _singleCallAsync;
         private readonly int _connectionId = CryptoTools.CreateRandomInt();
-        private readonly AsyncLock _lock = new AsyncLock();
+        private readonly AsyncNonKeyedLocker _lock = new AsyncNonKeyedLocker();
         private readonly ConnectionProtocol _protocolType;
         private readonly ClientSettings _clientSettings;
         private readonly LoopsHandler _loopsHandler;

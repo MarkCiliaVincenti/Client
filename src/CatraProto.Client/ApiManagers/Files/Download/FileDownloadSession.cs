@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CatraProto.Client.Async.Locks;
+using AsyncKeyedLock;
 using CatraProto.Client.Connections;
 using CatraProto.Client.Connections.MessageScheduling;
 using CatraProto.Client.MTProto.Rpc;
@@ -32,7 +32,7 @@ internal class FileDownloadSession : IDisposable
     private readonly FileDownloadOptions _options;
     private readonly ILogger _logger;
     private readonly object _mutex = new object();
-    private readonly AsyncLock _fileReferenceLock = new AsyncLock();
+    private readonly AsyncNonKeyedLocker _fileReferenceLock = new AsyncNonKeyedLocker();
     private int _currentAt;
 
     private FileDownloadSession(TelegramClient client, Stream destinationStream, long size, FileDownloadOptions options, FileLocation fileLocation, FileProgressCallback? callback)

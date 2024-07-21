@@ -23,8 +23,8 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using AsyncKeyedLock;
 using CatraProto.Client.ApiManagers;
-using CatraProto.Client.Async.Locks;
 using CatraProto.Client.MTProto.Auth.AuthKey;
 using CatraProto.Client.TL.Schemas.CloudChats;
 using CatraProto.Client.Updates;
@@ -37,7 +37,7 @@ namespace CatraProto.Client.Connections
         public RouterQueue MessagesQueue { get; }
         private readonly Dictionary<AuthKeyManager, int> _authKeys = new Dictionary<AuthKeyManager, int>();
         private readonly Dictionary<Connection, int> _referenceCounts = new Dictionary<Connection, int>();
-        private readonly AsyncLock _asyncLock = new AsyncLock();
+        private readonly AsyncNonKeyedLocker _asyncLock = new AsyncNonKeyedLocker();
         private UpdatesReceiver? _updatesHandler;
         private readonly TelegramClient _client;
         private Connection? _mainConnection;
